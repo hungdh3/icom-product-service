@@ -1,0 +1,10 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /icom-product-service
+spring:
+  application:
+    name: icom-product-service
+    version: 0.1
+springdoc:
+  packagesToScan: com.icom
