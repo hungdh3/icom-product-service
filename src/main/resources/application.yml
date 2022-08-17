@@ -1,7 +1,7 @@
 server:
   port: 8001
   servlet:
-    context-path: /icom-product-service
+    context-path: /
 spring:
   application:
     name: icom-product-service
