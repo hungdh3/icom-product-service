@@ -45,13 +45,13 @@ public class ProductCategoryEntity {
 
     private static boolean containField(String fieldName) {
         //allows some of field sorted
-        return "productCategoryName".equalsIgnoreCase(fieldName) ||
-                "created_at".equalsIgnoreCase(fieldName) ||
-                "updated_at".equalsIgnoreCase(fieldName);
+        return ProductCategoryEntity_.PRODUCT_CATEGORY_NAME.equalsIgnoreCase(fieldName) ||
+                ProductCategoryEntity_.CREATED_AT.equalsIgnoreCase(fieldName) ||
+                ProductCategoryEntity_.UPDATED_AT.equalsIgnoreCase(fieldName);
     }
 
     public static String getSearchField(String fieldName) {
         //use default search key if input search key is not valid
-        return containField(fieldName) ? fieldName : "productCategoryName";
+        return containField(fieldName) ? fieldName : ProductCategoryEntity_.PRODUCT_CATEGORY_NAME;
     }
 }

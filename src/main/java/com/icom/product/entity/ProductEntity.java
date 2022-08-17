@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -33,6 +34,15 @@ public class ProductEntity {
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategoryEntity productCategory;
 
+    @Column(name = "product_branch")
+    private String productBranch;
+
+    @Column(name = "product_color")
+    private String productColor;
+
+    @Column(name = "product_price")
+    private BigDecimal productPrice;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
@@ -51,8 +61,24 @@ public class ProductEntity {
                 ", product_description='" + productDescription + '\'' +
                 ", product_name='" + productName + '\'' +
                 ", product_category_id='" + productCategoryInfo + '\'' +
+                ", product_branch='" + productBranch + '\'' +
+                ", product_color='" + productColor + '\'' +
+                ", product_price='" + productPrice + '\'' +
                 ", created_at='" + createdAt + '\'' +
                 ", updated_at='" + updatedAt +
                 '}';
+    }
+
+    private static boolean containField(String fieldName) {
+        //allows some of field sorted
+        return ProductEntity_.PRODUCT_NAME.equalsIgnoreCase(fieldName) ||
+                ProductEntity_.PRODUCT_BRANCH.equalsIgnoreCase(fieldName) ||
+                ProductEntity_.UPDATED_AT.equalsIgnoreCase(fieldName) ||
+                ProductEntity_.CREATED_AT.equalsIgnoreCase(fieldName);
+    }
+
+    public static String getSearchField(String fieldName) {
+        //use default search key if input search key is not valid
+        return containField(fieldName) ? fieldName : ProductEntity_.PRODUCT_NAME;
     }
 }
