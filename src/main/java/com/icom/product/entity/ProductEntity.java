@@ -38,4 +38,21 @@ public class ProductEntity {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @Override
+    public String toString() {
+        String productCategoryInfo = "(null object)";
+        if (null == productCategory) {
+            productCategoryInfo = productCategory.toString();
+        }
+        return "ProductCategoryEntity{" +
+                "id=" + id +
+                ", product_name='" + productName + '\'' +
+                ", product_description='" + productDescription + '\'' +
+                ", product_name='" + productName + '\'' +
+                ", product_category_id='" + productCategoryInfo + '\'' +
+                ", created_at='" + createdAt + '\'' +
+                ", updated_at='" + updatedAt +
+                '}';
+    }
 }
