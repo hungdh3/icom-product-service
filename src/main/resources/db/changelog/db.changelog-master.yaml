@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/20220817_2-insert-dev-data.sql
       context: dev
+  - include:
+      file: db/changelog/20220818-create-service-schema.sql
+      context: dev, prod
