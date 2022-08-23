@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -65,6 +66,12 @@ public class ProductService {
             searchSpec.and(ProductEntitySpecification.hasColor(color));
         }
         return productEntityRepository.findAll(searchSpec, page);
+    }
 
+    @KafkaListener(topics = "ITEM_CREATED_TOPIC",
+            groupId = "groupId",
+            containerFactory = "kafkaListenerContainerFactory")
+    public void itemCreatedEvent(String message) {
+        log.info("------ Received Message from Kafka: " + message);
     }
 }
