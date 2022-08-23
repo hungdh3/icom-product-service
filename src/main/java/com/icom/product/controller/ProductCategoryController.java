@@ -4,6 +4,7 @@ import com.icom.product.entity.ProductCategoryEntity;
 import com.icom.product.model.PageInfo;
 import com.icom.product.service.ProductCategoryService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ public class ProductCategoryController {
     private ProductCategoryService productCategoryService;
 
     @GetMapping(value = "/v1/product/categories", produces = "application/json")
+    @ApiOperation(value = "Get Products")
     public ResponseEntity<?> getAllProductCategories(PageInfo page) {
         Page<ProductCategoryEntity> productCategoryEntities = productCategoryService.getProductCategories(page);
         log.info("getAllProductCategories");

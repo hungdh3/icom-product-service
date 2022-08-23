@@ -40,6 +40,12 @@ public class ProductEntity {
     @Column(name = "product_color")
     private String productColor;
 
+    @Column(name = "PRODUCT_TOTAL_QUALITY")
+    private Integer productTotalQuality;
+
+    @Column(name = "PRODUCT_REMAIN_QUALITY")
+    private Integer productRemainQuality;
+
     @Column(name = "product_price")
     private BigDecimal productPrice;
 
@@ -63,6 +69,8 @@ public class ProductEntity {
                 ", product_category_id='" + productCategoryInfo + '\'' +
                 ", product_branch='" + productBranch + '\'' +
                 ", product_color='" + productColor + '\'' +
+                ", product_price='" + productTotalQuality + '\'' +
+                ", productRemainQuality='" + productRemainQuality + '\'' +
                 ", product_price='" + productPrice + '\'' +
                 ", created_at='" + createdAt + '\'' +
                 ", updated_at='" + updatedAt +
