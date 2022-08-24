@@ -9,6 +9,7 @@ import com.icom.product.util.JsonUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -85,11 +86,16 @@ public class ProductService {
             log.warn("Product id from String: " + event.getItemRef() + " uuid: " + productId);
             return;
         }
-        consumeProduct(productEntityOptional.get(), event);
+        try {
+            consumeProduct(productEntityOptional.get(), event);
+        } catch (DataIntegrityViolationException e) {
+            log.warn("DataIntegrityViolationException when consume product");
+        }
+        //@TODO sent event to notify the product is successfully comsumed or not
     }
 
     @Transactional
-    public void consumeProduct(ProductEntity product, ItemCreatedEvent createdItem) {
+    public void consumeProduct(ProductEntity product, ItemCreatedEvent createdItem) throws DataIntegrityViolationException {
         productEntityRepository.consumeProduct(product.getId(), createdItem.getItemQuality());
     }
 
