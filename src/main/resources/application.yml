@@ -34,4 +34,4 @@ springdoc:
 icom:
   cart:
     item-created-topic:
-      name: ITEM_CREATED_TOPIC
+      name: ITEM_CREATED_TOPIC5

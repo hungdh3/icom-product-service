@@ -1,9 +1,11 @@
 package com.icom.product.service;
 
 import com.icom.product.entity.ProductEntity;
+import com.icom.product.kafka.ItemCreatedEvent;
 import com.icom.product.model.PageInfo;
 import com.icom.product.repository.ProductEntityRepository;
 import com.icom.product.repository.ProductEntitySpecification;
+import com.icom.product.util.JsonUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +70,13 @@ public class ProductService {
         return productEntityRepository.findAll(searchSpec, page);
     }
 
-    @KafkaListener(topics = "ITEM_CREATED_TOPIC",
-            groupId = "groupId",
+    @KafkaListener(topics = "${icom.cart.item-created-topic.name}",
+            groupId = "${spring.kafka.consumer.group-id}",
             containerFactory = "kafkaListenerContainerFactory")
     public void itemCreatedEvent(String message) {
         log.info("------ Received Message from Kafka: " + message);
+        ItemCreatedEvent event = (ItemCreatedEvent) JsonUtil.stringToObject(message, ItemCreatedEvent.class);
+        log.info("------ Object Received: " + event.toString());
+
     }
 }
