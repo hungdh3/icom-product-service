@@ -17,7 +17,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -77,6 +79,18 @@ public class ProductService {
         log.info("------ Received Message from Kafka: " + message);
         ItemCreatedEvent event = (ItemCreatedEvent) JsonUtil.stringToObject(message, ItemCreatedEvent.class);
         log.info("------ Object Received: " + event.toString());
-
+        UUID productId = UUID.fromString(event.getItemRef());
+        Optional<ProductEntity> productEntityOptional = productEntityRepository.findById(productId);
+        if (!productEntityOptional.isPresent()) {
+            log.warn("Product id from String: " + event.getItemRef() + " uuid: " + productId);
+            return;
+        }
+        consumeProduct(productEntityOptional.get(), event);
     }
+
+    @Transactional
+    public void consumeProduct(ProductEntity product, ItemCreatedEvent createdItem) {
+        productEntityRepository.consumeProduct(product.getId(), createdItem.getItemQuality());
+    }
+
 }
