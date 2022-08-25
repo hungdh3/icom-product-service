@@ -1,6 +1,6 @@
 package com.icom.product.controller;
 
-import com.icom.product.entity.ProductCategoryEntity;
+import brave.internal.Nullable;
 import com.icom.product.entity.ProductEntity;
 import com.icom.product.model.PageInfo;
 import com.icom.product.service.ProductService;
@@ -26,11 +26,14 @@ public class ProductController {
                                            BigDecimal priceTo,
                                            String nameLike,
                                            String descriptionLike,
-                                           String categoryId,
+                                           @Nullable String categoryId,
                                            String branch,
                                            String color,
                                            PageInfo page) {
-        UUID categoryUuid = UUID.fromString(categoryId);
+        UUID categoryUuid = null;
+        if (null != categoryId && !categoryId.trim().equalsIgnoreCase("")) {
+            categoryUuid = UUID.fromString(categoryId);
+        }
         Page<ProductEntity> productEntities
                 = productService.searchProduct(priceFrom,
                 priceTo, nameLike, descriptionLike, categoryUuid, branch, color, page);

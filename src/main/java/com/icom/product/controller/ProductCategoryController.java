@@ -29,4 +29,9 @@ public class ProductCategoryController {
         //@TODO: return sorted key
         return ResponseEntity.ok(productCategoryEntities);
     }
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello world";
+    }
 }

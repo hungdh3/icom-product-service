@@ -21,7 +21,7 @@ spring:
     generate-ddl: true
   liquibase:
     enabled: true
-    contexts: unittest #With Spring Boot 2.0, liquibase property is deprecated and moved under spring root: spring.liquibase.contexts
+    contexts: dev #With Spring Boot 2.0, liquibase property is deprecated and moved under spring root: spring.liquibase.contexts
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
