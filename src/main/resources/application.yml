@@ -35,3 +35,17 @@ icom:
   cart:
     item-created-topic:
       name: ITEM_CREATED_TOPIC5
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:10.1:///spring_boot_testcontainers
+  jpa:
+    hibernate:
+      ddl-auto: create
+  liquibase:
+    enabled: false
