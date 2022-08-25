@@ -1,16 +1,17 @@
 databaseChangeLog:
   - include:
       file: db/changelog/20220817-create-product-schema.sql
-      context: dev, prod
+      #no need to specify context if it applies to all
   - include:
       file: db/changelog/20220817_2-insert-dev-data.sql
       context: dev
   - include:
       file: db/changelog/20220818-create-service-schema.sql
-      context: dev, prod
   - include:
       file: db/changelog/20220824-update-product-with-quality-schema.sql
-      context: dev, prod
   - include:
       file: db/changelog/20220824_2-insert-test-product-quality.sql
       context: dev
+  - include:
+      file: db/changelog/20220825-init-unit-test-data.sql
+      context: unittest

@@ -21,13 +21,13 @@ spring:
     generate-ddl: true
   liquibase:
     enabled: true
+    contexts: dev #With Spring Boot 2.0, liquibase property is deprecated and moved under spring root: spring.liquibase.contexts
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: ICOMMERCE_ONLINE_PROCESSING
 liquibase:
   change-log: classpath:/db/changelog/db.changelog-master.yaml
-  contexts: dev
   dropFirst: false
 springdoc:
   packagesToScan: com.icom
@@ -35,7 +35,6 @@ icom:
   cart:
     item-created-topic:
       name: ITEM_CREATED_TOPIC5
-
 ---
 spring:
   config:
@@ -43,14 +42,15 @@ spring:
       on-profile: test
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:10.1:///spring_boot_testcontainers
+    url: jdbc:tc:postgresql:10.1:///product_unittest_table
   jpa:
     hibernate:
       ddl-auto: create
   liquibase:
     #If we want to init data inside unitest, you have to turn off liquibase.
     #We can prepare data test and instruct liquibase to automatically update our unit-test data.
-    enabled: false
+    enabled: true
+    contexts: unittest
 logging:
   level:
     root: WARN

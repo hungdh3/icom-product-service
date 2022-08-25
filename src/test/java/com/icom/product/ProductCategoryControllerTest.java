@@ -14,21 +14,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProductApplication.class)
 @ActiveProfiles("test")
-class ProductApplicationTests {
+public class ProductCategoryControllerTest {
 
     @Autowired
     private ProductCategoryEntityRepository productCategoryEntityRepository;
 
     @Test
     public void test_insert_and_retrieve_data_for_unittest_postgres_container() {
-        //ARRANGE - data is prepared by liquibase
-        //ACT
+        ProductCategoryEntity productCategory = new ProductCategoryEntity();
+        productCategory.setProductCategoryName("test product name");
+        productCategoryEntityRepository.save(productCategory);
+
+        productCategory = new ProductCategoryEntity();
+        productCategory.setProductCategoryName("test product name 2");
+        productCategoryEntityRepository.save(productCategory);
+
         Iterable<ProductCategoryEntity> all = productCategoryEntityRepository.findAll();
         int counter = 0;
         for (Object i : all) {
             counter++;
         }
-        //ASSERT
-        assertThat(counter).isEqualTo(10);
+        assertThat(counter).isEqualTo(12);
     }
 }
