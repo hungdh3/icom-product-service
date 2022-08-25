@@ -48,4 +48,9 @@ spring:
     hibernate:
       ddl-auto: create
   liquibase:
+    #If we want to init data inside unitest, you have to turn off liquibase.
+    #We can prepare data test and instruct liquibase to automatically update our unit-test data.
     enabled: false
+logging:
+  level:
+    root: WARN
